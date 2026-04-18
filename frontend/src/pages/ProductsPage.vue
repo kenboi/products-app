@@ -19,6 +19,7 @@ const viewMode = ref<'tree' | 'table'>('tree')
 const columns: QTableProps['columns'] = [
     { name: 'product_name', label: 'Name', field: 'product_name', sortable: true, align: 'left' },
     { name: 'product_type', label: 'Type', field: 'product_type', sortable: true, align: 'left' },
+    { name: 'product_parent_id', label: 'Parent ID', field: 'product_parent_id', sortable: true, align: 'left' },
     { name: 'actions', label: 'Actions', field: 'actions', align: 'center' },
 ]
 const filterName = ref('')
@@ -101,6 +102,12 @@ const openDelete = (product: IProduct) => {
         <!-- Table -->
         <q-table v-else :rows="productStore.products" :columns="columns" row-key="product_id"
             :loading="productStore.loading">
+            <template #body-cell-product_parent_id="{ row }">
+                <q-td>
+                    <q-badge v-if="row.product_parent_id === null" label="Root" color="primary" />
+                    <span v-else>{{ row.product_parent_id }}</span>
+                </q-td>
+            </template>
             <template #body-cell-actions="{ row, col }">
                 <q-td :props="{ row, col }">
                     <q-btn flat round dense icon="add" size="sm" @click="openAddChild(row)" />
