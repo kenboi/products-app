@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useProductStore } from 'src/stores/productStore';
-import { IProduct } from 'src/types/product';
+import type { IProduct } from 'src/types/product';
 import { computed, ref, watch } from 'vue';
 
 

@@ -24,17 +24,17 @@ const columns: QTableProps['columns'] = [
 const filterName = ref('')
 const filterType = ref('')
 
-const onFilter = () => {
-    productStore.applyFilters({
+const onFilter = async () => {
+    await productStore.applyFilters({
         product_name: filterName.value || undefined,
         product_type: filterType.value || undefined,
     })
 }
 
-const onClear = () => {
+const onClear = async () => {
     filterName.value = ''
     filterType.value = ''
-    productStore.clearFilters()
+    await productStore.clearFilters()
 }
 
 const showDialog = ref(false)
@@ -65,8 +65,8 @@ const openDelete = (product: IProduct) => {
         message: `Are you sure you want to delete "${product.product_name}"?`,
         cancel: true,
         persistent: true
-    }).onOk(async () => {
-        await productStore.deleteProduct(product.product_id)
+    }).onOk(() => {
+        void productStore.deleteProduct(product.product_id) // added void so i dont have to await for it which silences the linter
     })
 }
 </script>
@@ -99,11 +99,11 @@ const openDelete = (product: IProduct) => {
         <!-- Table -->
         <q-table v-else :rows="productStore.products" :columns="columns" row-key="product_id"
             :loading="productStore.loading">
-            <template #body-cell-actions="{ row }">
-                <q-td>
-                    <q-btn flat icon="add" @click="openAddChild(row)" />
-                    <q-btn flat icon="edit" @click="openEdit(row)" />
-                    <q-btn flat icon="delete" color="negative" @click="openDelete(row)" />
+            <template #body-cell-actions="{ row, col }">
+                <q-td :props="{ row, col }">
+                    <q-btn flat round dense icon="add" size="sm" @click="openAddChild(row)" />
+                    <q-btn flat round dense icon="edit" size="sm" @click="openEdit(row)" />
+                    <q-btn flat round dense icon="delete" size="sm" color="negative" @click="openDelete(row)" />
                 </q-td>
             </template>
         </q-table>

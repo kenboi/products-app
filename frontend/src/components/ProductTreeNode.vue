@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useQuasar } from 'quasar';
 import { useProductStore } from 'src/stores/productStore';
-import { IProduct } from 'src/types/product'
+import type { IProduct } from 'src/types/product'
 import { computed, ref } from 'vue';
 import ProductDialog from './ProductDialog.vue';
 
@@ -29,8 +29,8 @@ const onDelete = () => {
         message: `Are you sure you want to delete "${props.product.product_name}"?`,
         cancel: true,
         persistent: true
-    }).onOk(async () => {
-        await productStore.deleteProduct(props.product.product_id)
+    }).onOk(() => {
+        void productStore.deleteProduct(props.product.product_id)
     })
 }
 
