@@ -10,6 +10,12 @@ yarn
 npm install
 ```
 
+### Environent File
+
+```env
+VITE_API_BASE_URL=http://localhost:8000/api
+```
+
 ### Start the app in development mode (hot-code reloading, error reporting, etc.)
 
 ```bash
