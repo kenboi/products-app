@@ -13,8 +13,8 @@ export interface IProductPayload {
 }
 
 export interface IProductFilterParams {
-    product_name?: string,
-    product_type?: string,
+    product_name?: string | undefined,
+    product_type?: string | undefined,
 }
 
 export interface APIResponse<T> {
