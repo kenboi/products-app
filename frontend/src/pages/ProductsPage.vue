@@ -25,6 +25,7 @@ const filterName = ref('')
 const filterType = ref('')
 
 const onFilter = async () => {
+    viewMode.value = 'table';
     await productStore.applyFilters({
         product_name: filterName.value || undefined,
         product_type: filterType.value || undefined,
@@ -78,10 +79,11 @@ const openDelete = (product: IProduct) => {
             <q-btn label="Add Product" color="primary" icon="add" @click="openAdd" />
         </div>
 
-        <div class="row q-gutter-md q-mb-md">
-            <q-input v-model="filterName" label="Search by name" clearable @update:model-value="onFilter" />
-            <q-select v-model="filterType" :options="productStore.productTypes" label="Filter by type" clearable
+        <div class="row q-gutter-md q-mb-md items-center">
+            <q-input v-model="filterName" label="Search by name" clearable style="min-width: 200px"
                 @update:model-value="onFilter" />
+            <q-select v-model="filterType" :options="productStore.productTypes" label="Filter by type" clearable
+                style="min-width: 200px" @update:model-value="onFilter" />
             <q-btn label="Clear" flat @click="onClear" />
         </div>
 

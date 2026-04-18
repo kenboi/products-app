@@ -40,19 +40,16 @@ const onDelete = () => {
 
 </script>
 <template>
-    <q-card :style="indentStyle">
-        <q-btn flat round dense :icon="expanded ? 'expand_less' : 'expand_more'"
-            :visibility="hasChildren ? 'visible' : 'hidden'" @click="expanded = !expanded" />
-
-        <span>{{ product.product_name }}</span>
-        <span class="text-caption text-grey">{{ product.product_type }}</span>
-
-
-
-        <q-btn flat icon="add" @click="showAddChildDialog = true" />
-        <q-btn flat icon="edit" @click="showEditDialog = true" />
-        <q-btn flat icon="delete" color="negative" @click="onDelete" />
-
+    <q-card :style="indentStyle" flat bordered class="q-mb-xs">
+        <q-card-section class="row items-center q-py-sm q-gutter-sm">
+            <q-btn flat round dense :icon="expanded ? 'expand_less' : 'expand_more'"
+                :style="{ visibility: hasChildren ? 'visible' : 'hidden' }" @click="expanded = !expanded" />
+            <span class="col text-body1">{{ product.product_name }}</span>
+            <span class="text-caption text-grey">{{ product.product_type }}</span>
+            <q-btn flat round dense icon="add" size="sm" @click="showAddChildDialog = true" />
+            <q-btn flat round dense icon="edit" size="sm" @click="showEditDialog = true" />
+            <q-btn flat round dense icon="delete" size="sm" color="negative" @click="onDelete" />
+        </q-card-section>
 
         <q-slide-transition>
             <div v-if="expanded">
@@ -62,9 +59,6 @@ const onDelete = () => {
         </q-slide-transition>
 
         <ProductDialog v-model="showEditDialog" :product="product" />
-
         <ProductDialog v-model="showAddChildDialog" :parentProduct="product" />
-
     </q-card>
-
 </template>
