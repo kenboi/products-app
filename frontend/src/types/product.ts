@@ -13,11 +13,11 @@ export interface IProductPayload {
 }
 
 export interface IProductFilterParams {
-    pproduct_name?: string,
+    product_name?: string,
     product_type?: string,
 }
 
-export interface APIResponse<T> { // vibe-check: not sure what to do with this
+export interface APIResponse<T> {
     message: string,
     data: T
 }
