@@ -67,6 +67,7 @@ watch(isOpen, (value) => {
           hide-selected
           input-debounce="0"
           new-value-mode="add-unique"
+          @input-value="(val) => (form.product_type = val)"
         />
 
         <q-select
